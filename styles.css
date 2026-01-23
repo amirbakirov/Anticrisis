@@ -383,6 +383,7 @@ body {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 60px;
     align-items: start;
+    position: relative;
 }
 
 .hero-left {
@@ -502,6 +503,67 @@ body {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Hero Table and Phone */
+.hero-table-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(50% - 30px);
+    max-width: none;
+    margin-top: 0;
+    display: block;
+    z-index: 1;
+}
+
+.hero-table-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: left center;
+}
+
+.hero-phone-link-shadow {
+    position: absolute;
+    bottom: 42%;
+    right: 37.5%;
+    width: 10%;
+    height: 25%;
+    transform: rotate(4deg);
+}
+
+.hero-phone-link {
+    position: absolute;
+    bottom: 39.5%;
+    right: 34.8%;
+    display: block;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+    transform-origin: center;
+    transform: rotate(4deg);
+}
+
+.hero-phone-image {
+    width: auto;
+    height: 135px;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    transition: var(--transition);
+}
+
+.hero-phone-link:hover + .hero-phone-link-shadow {
+    box-shadow: 0 0px 45px rgba(255, 215, 0, 1);
+    transform: rotate(4deg);
+}
+
+/* Скрываем на мобильных устройствах */
+@media (max-width: 1205px) {
+    .hero-table-wrapper {
+        display: none;
+    }
+}
+
 /* Form Container */
 .form-container {
     background: var(--card-bg);
@@ -562,6 +624,28 @@ body {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
+}
+
+.form-message {
+    margin-top: 15px;
+    padding: 12px 18px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    animation: fadeInUp 0.3s ease;
+}
+
+.form-message-success {
+    background: rgba(74, 222, 128, 0.15);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    color: var(--green);
+}
+
+.form-message-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--red);
 }
 
 .info-box {
@@ -1286,11 +1370,11 @@ section {
     .hero-image-wrapper {
         order: -1;
         margin-bottom: 0;
-        max-height: 600px;
+        max-height: 1200px;
     }
     
     .hero-image {
-        height: 600px;
+        height: 1200px;
         object-position: center top;
     }
     

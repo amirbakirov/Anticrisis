@@ -23,7 +23,7 @@
                 <nav class="nav" id="main-nav">
                     <a href="#home" class="nav-link">ГЛАВНАЯ</a>
                     <a href="#about" class="nav-link">ОБ УСЛУГЕ</a>
-                    <a href="#stages" class="nav-link">ЭТАПЫ РАБОТЫ</a>
+                    <a href="#stages" class="nav-link">ЭТАПЫ</a>
                     <a href="#goals" class="nav-link">ЦЕЛИ</a>
                     <a href="#workflow" class="nav-link">ПОРЯДОК РАБОТЫ</a>
                     <a href="#faq" class="nav-link">FAQ</a>
@@ -44,7 +44,7 @@
                 <nav class="mobile-nav">
                     <a href="#home" class="mobile-nav-link">ГЛАВНАЯ</a>
                     <a href="#about" class="mobile-nav-link">ОБ УСЛУГЕ</a>
-                    <a href="#stages" class="mobile-nav-link">ЭТАПЫ РАБОТЫ</a>
+                    <a href="#stages" class="mobile-nav-link">ЭТАПЫ</a>
                     <a href="#goals" class="mobile-nav-link">ЦЕЛИ</a>
                     <a href="#workflow" class="mobile-nav-link">ПОРЯДОК РАБОТЫ</a>
                     <a href="#faq" class="mobile-nav-link">FAQ</a>
@@ -65,13 +65,13 @@
                 <div class="hero-left">
                     <div class="tags">
                         <span class="tag tag-active">субсидиарная ответственность</span>
-                        <span class="tag">активы</span>
+                        <span class="tag">защита активов</span>
                         <span class="tag">восстановление деятельности</span>
                     </div>
                     <h1 class="hero-title">АНТИКРИЗИСНОЕ УПРАВЛЕНИЕ ДЛЯ ЗАЩИТЫ СОБСТВЕННИКА И ЛИЧНЫХ АКТИВОВ</h1>
                     <p class="hero-description">
                         Управление юридическим лицом с целью исключения привлечения к субсидиарной ответственности, 
-                        сохранения активов и возможного восстановления хозяйственной деятельности. Без театра. 
+                        сохранения активов и возможного восстановления хозяйственной деятельности. 
                         С документами, дисциплиной и правильной логикой действий.
                     </p>
                     <div class="hero-buttons">
@@ -81,7 +81,7 @@
                     <div class="features">
                         <div class="feature-item">
                             <div class="feature-icon feature-icon-green"></div>
-                            <span>СТРАТЕГИЯ ЗАЩИТЫ 30/120/365</span>
+                            <span>СТРАТЕГИЯ 30/120/365</span>
                         </div>
                         <div class="feature-item">
                             <div class="feature-icon feature-icon-green"></div>
@@ -93,6 +93,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="hero-table-wrapper">
+                    <img src="images/table.png" alt="Рабочий стол" class="hero-table-image">
+                    <a href="https://t.me/pro_nalogi_tut" target="_blank" rel="noopener noreferrer" class="hero-phone-link">
+                        <img src="images/phone-2.png" alt="Телефон" class="hero-phone-image">
+                    </a>
+                    <div class="hero-phone-link-shadow"></div>
+                </div>
                 <div class="hero-right">
                     <div class="hero-image-wrapper">
                         <img src="images/photo.jpeg" alt="Антикризисное управление" class="hero-image">
@@ -100,15 +107,16 @@
                     <div class="form-container" id="quick-assessment-form">
                         <h3 class="form-title">Быстрая оценка ситуации</h3>
                         <form class="quick-form" id="quickForm">
-                            <input type="text" placeholder="Например: Салим" class="form-input" required>
-                            <input type="text" placeholder="@username или +7...." class="form-input" required>
-                            <textarea placeholder="Долги, претензии, риски по КДЛ, блокировки, суды..." class="form-input form-textarea" required></textarea>
+                            <input type="text" name="name" placeholder="Например: Салим" class="form-input" required>
+                            <input type="text" name="contact" placeholder="@username или +7...." class="form-input" required>
+                            <textarea name="description" placeholder="Долги, претензии, риски по КДЛ, блокировки, суды..." class="form-input form-textarea" required></textarea>
                             <button type="submit" class="btn btn-yellow btn-full">Отправить</button>
                         </form>
+                        <div id="form-message" class="form-message" style="display: none;"></div>
                         <div class="form-info">
                             <div class="info-box">
                                 <span class="info-label">Срок</span>
-                                <span class="info-value">первичная оценка: 24-48</span>
+                                <span class="info-value">первичная оценка: 24-48ч</span>
                             </div>
                             <div class="info-box">
                                 <span class="info-label">Формат</span>
@@ -308,7 +316,7 @@
                             </div>
                         </div>
                         <div class="faq-item">
-                            <button class="faq-question">Если банкротство неизбежно — можно ли пройти без субсидиарной ответственности?</button>
+                            <button class="faq-question">Если банкротство неизбежно - можно ли исключить субсидиарную ответственность?</button>
                             <div class="faq-answer">
                                 <p>В ряде случаев — да. Это зависит от действий руководства до и во время кризиса, наличия документов и своевременности правовых шагов. Банкротство само по себе не означает автоматического привлечения к субсидиарной ответственности.</p>
                             </div>
@@ -343,8 +351,8 @@
                     <div id="contacts" class="contacts-box">
                         <h3 class="contacts-title">Контакты</h3>
                         <div class="contacts-info">
-                            <p>Телефон: <a href="tel:79534893830">+7 (953) 489-38-30</a></p>
-                            <p>Telegram: <a href="https://t.me/your_dus">@your_dus</a></p>
+                            <p>Телефон: <a href="tel:79179126550">+7 (917) 912 65-50</a></p>
+                            <p>Telegram: <a href="https://t.me/evoldteach">@evoldteach</a></p>
                             <p>Email: <a href="mailto:info@urgrand.ru">info@urgrand.ru</a></p>
                         </div>
                         <div class="contacts-buttons">
@@ -366,7 +374,7 @@
                         <div class="footer__ogrn">ОГРН: 1231600049999</div>
                         <div class="footer__address">г. Казань, Ю.Фучика 90, БЦ Франт</div>
                         <div class="footer__contact">
-                            <a href="tel:79534893830" class="footer__phone">+7 (953) 489-38-30</a>
+                            <a href="tel:79179126550" class="footer__phone">+7 (917) 912 65-50</a>
                         </div>
                         <div class="footer__contact">
                             <a href="mailto:info@urgrand.ru" class="footer__email">info@urgrand.ru</a>

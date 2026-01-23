@@ -45,25 +45,146 @@ document.querySelectorAll('.scroll-to-form').forEach(button => {
 
 // Form submission handler
 const quickForm = document.getElementById('quickForm');
+const formMessage = document.getElementById('form-message');
+
 if (quickForm) {
-    quickForm.addEventListener('submit', function(e) {
+    quickForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Get form data
-        const formData = new FormData(this);
-        const inputs = this.querySelectorAll('input, textarea');
-        const data = {};
+        // Получаем данные формы
+        const nameInput = this.querySelector('input[name="name"]');
+        const contactInput = this.querySelector('input[name="contact"]');
+        const descriptionInput = this.querySelector('textarea[name="description"]');
         
-        inputs.forEach(input => {
-            data[input.placeholder || input.name] = input.value;
-        });
+        const data = {
+            name: nameInput ? nameInput.value.trim() : '',
+            contact: contactInput ? contactInput.value.trim() : '',
+            description: descriptionInput ? descriptionInput.value.trim() : ''
+        };
         
-        // Demo form - just show alert
-        alert('Демо-форма отправлена! В реальном сайте данные будут отправлены в Telegram/CRM.\n\n' + 
-              JSON.stringify(data, null, 2));
+        // Проверка на пустые поля
+        if (!data.name || !data.contact || !data.description) {
+            if (formMessage) {
+                formMessage.textContent = 'Пожалуйста, заполните все поля формы';
+                formMessage.className = 'form-message form-message-error';
+                formMessage.style.display = 'block';
+            }
+            return;
+        }
         
-        // Reset form
-        this.reset();
+        // Показываем индикатор загрузки
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Отправка...';
+        
+        // Скрываем предыдущее сообщение
+        if (formMessage) {
+            formMessage.style.display = 'none';
+        }
+        
+        try {
+            // Определяем URL API (можно изменить для продакшена)
+            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:8000/api/submit-form'
+                : '/api/submit-form';
+            
+            console.log('Отправка данных на:', API_URL);
+            console.log('Данные:', data);
+            
+            // Отправляем данные на сервер
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                mode: 'cors'
+            }).catch(fetchError => {
+                console.error('Fetch error:', fetchError);
+                throw new Error(`Не удалось подключиться к серверу.`);
+            });
+            
+            console.log('Статус ответа:', response.status);
+            
+            // Проверяем статус ответа
+            if (!response.ok) {
+                let errorText = '';
+                try {
+                    const errorData = await response.json();
+                    errorText = errorData.message || '';
+                } catch (e) {
+                    errorText = await response.text();
+                }
+                
+                if (response.status === 404) {
+                    throw new Error('Сервер не найден.');
+                } else if (response.status >= 500) {
+                    throw new Error('Ошибка сервера. Пожалуйста, попробуйте позже.');
+                } else {
+                    throw new Error(errorText || `Ошибка ${response.status}: ${response.statusText}`);
+                }
+            }
+            
+            let result;
+            try {
+                result = await response.json();
+            } catch (jsonError) {
+                console.error('JSON parse error:', jsonError);
+                throw new Error('Сервер вернул некорректный ответ. Проверьте логи сервера.');
+            }
+            
+            console.log('Результат:', result);
+            
+            if (result.success) {
+                // Показываем сообщение об успехе
+                if (formMessage) {
+                    formMessage.textContent = result.message;
+                    formMessage.className = 'form-message form-message-success';
+                    formMessage.style.display = 'block';
+                }
+                
+                // Сбрасываем форму
+                this.reset();
+                
+                // Скрываем сообщение через 5 секунд
+                setTimeout(() => {
+                    if (formMessage) {
+                        formMessage.style.display = 'none';
+                    }
+                }, 5000);
+            } else {
+                // Показываем сообщение об ошибке
+                if (formMessage) {
+                    formMessage.textContent = result.message || 'Произошла ошибка при отправке формы';
+                    formMessage.className = 'form-message form-message-error';
+                    formMessage.style.display = 'block';
+                }
+            }
+        } catch (error) {
+            // Обработка ошибок сети
+            console.error('Error details:', error);
+            console.error('Error name:', error.name);
+            console.error('Error message:', error.message);
+            
+            if (formMessage) {
+                let errorMessage = 'Ошибка соединения с сервером. ';
+                
+                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Не удалось подключиться к серверу. ';
+                } else if (error.message) {
+                    errorMessage += error.message;
+                }
+                
+                formMessage.textContent = errorMessage;
+                formMessage.className = 'form-message form-message-error';
+                formMessage.style.display = 'block';
+            }
+        } finally {
+            // Восстанавливаем кнопку
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }
     });
 }
 
